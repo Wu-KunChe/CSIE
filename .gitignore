@@ -1,0 +1,5 @@
+/*
+!.gitignore
+!EEG_Attention_Project/
+EEG_Attention_Project/results/diagnostics/random_search_4sec
+EEG_Attention_Project/epochs
