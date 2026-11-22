@@ -1,0 +1,26 @@
+# E2: input frequency information only; original E1 CNN/model and fold protocol unchanged.
+study:
+  name: E2_frequency_4sec
+  window_seconds: 4
+  sampling_rate_hz: 250
+  source_key: X_B0_uV
+  bands:
+    theta: [4.0, 8.0]
+    alpha: [8.0, 13.0]
+    beta: [13.0, 30.0]
+  groups: [Full30, Forehead2]
+paths:
+  epochs_dir: epochs/4sec
+  labels_csv: data/labels/window_length/4sec/rt30_labels.csv
+  subject_folds_csv: data/splits/subject_folds.csv
+  results_root: results/diagnostics/E2_frequency_4sec
+  # Original 4-second 1D-CNN, not Random Search. Read-only reference.
+  b0_reference_dir: results/diagnostics/window_length/4sec
+filtering:
+  type: butterworth_sos_zero_phase_reflect_padded
+  butterworth_order: 4
+  reflect_pad_samples: 250  # 1 second per edge, reflect within the already-extracted epoch
+  working_dtype: float64
+  output_dtype: float32
+  # Offline comparison only: each epoch is already B0 1-30Hz filtered.
+  # A continuous-stream causal implementation must be separately verified for deployment.

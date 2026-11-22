@@ -1,0 +1,2 @@
+﻿fold,n_samples,n_label0,n_label1,balanced_accuracy,macro_f1,sensitivity_label1,specificity_label0,tn,fp,fn,tp,threshold,group,n_train,n_val,best_epoch,best_val_loss,train_positive_weight,model
+1,20,10,10,0.5,0.3333333333333333,1.0,0.0,0,10,0,10,0.5,Forehead2,68,20,2,0.6906107068061829,1.0,EEGNet

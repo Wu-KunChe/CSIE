@@ -1,0 +1,15 @@
+{
+  "signature": "6e89d9b27b75f0bc0167c46fa38094c2a4b041d86614b0c24bc8af6dc0f3475a",
+  "group": "Central2",
+  "fold": 5,
+  "channels": [
+    "C3",
+    "C4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT top/bottom 30%",
+  "train_only_scaling": true,
+  "best_epoch": 6,
+  "best_val_loss": 0.6610030599075303,
+  "device": "cpu"
+}

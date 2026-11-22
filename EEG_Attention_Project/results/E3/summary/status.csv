@@ -1,0 +1,7 @@
+﻿group,condition,folds_completed,complete,source
+Full30,P0,5,True,results\diagnostics\window_length\4sec\Full30
+Full30,P1,5,True,results\E3\P1_ica\Full30
+Full30,P2,0,False,results\E3\P2_official\Full30
+Forehead2,P0,5,True,results\diagnostics\window_length\4sec\Forehead2
+Forehead2,P1,5,True,results\E3\P1_ica\Forehead2
+Forehead2,P2,5,True,results\E3\P2_official

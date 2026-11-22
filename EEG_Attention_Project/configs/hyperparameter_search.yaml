@@ -1,0 +1,37 @@
+# Independent 4-second study. Does not change baseline.yaml or original E1 results.
+study:
+  name: random_search_4sec
+  window_seconds: 4
+  sampling_rate_hz: 250
+  source_key: X_B0_uV
+  n_random_candidates: 50
+  include_baseline_as_one_candidate: true  # 1 original Baseline + 49 random = 50 sets
+  search_folds: 3
+  search_seed: 20261109
+  early_stop_subject_fraction: 0.20
+  selection_metric: mean_score_balanced_accuracy
+
+paths:
+  epochs_dir: epochs/4sec
+  labels_csv: data/labels/window_length/4sec/rt30_labels.csv
+  subject_folds_csv: data/splits/subject_folds.csv
+  results_dir: results/diagnostics/random_search_4sec
+
+search_space:
+  # Values drawn continuously from a log-uniform distribution.
+  learning_rate: {type: log_uniform, low: 0.0001, high: 0.003}
+  weight_decay: {type: log_uniform, low: 0.000001, high: 0.01}
+  # Values drawn continuously from a uniform distribution.
+  dropout: {type: uniform, low: 0.10, high: 0.50}
+  # Discrete combinations preserve a compact, meaningful architecture.
+  conv_filters: {type: categorical, choices: [[16, 32], [32, 64], [64, 128]]}
+  # Time scales in the 250 Hz B0 EEG.
+  kernel_1: {type: categorical, choices: [25, 51, 101, 201]}
+  kernel_2: {type: categorical, choices: [7, 15, 31]}
+  batch_size: {type: categorical, choices: [32, 64, 128]}
+  early_stopping_patience: {type: randint_inclusive, low: 6, high: 12}
+
+final_evaluation:
+  channel_groups: [Full30, Forehead2, Frontal2, Central2, Temporal2, Parietal2, Occipital2]
+  subject_folds: 5
+  compare_to_original_baseline: false   # Baseline files never read/overwritten.

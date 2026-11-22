@@ -1,0 +1,10 @@
+Group: Frontal2
+Channels: F3,F4
+Status: COMPLETE (5/5 folds)
+Test predictions: 10,118; test subjects: 27
+Fold mean BA: 0.6359 +/- 0.0339
+Fold mean Macro-F1: 0.6245
+Pooled out-of-fold BA: 0.6360
+Pooled out-of-fold Macro-F1: 0.6325
+Pooled confusion matrix: TN=2725, FP=2334, FN=1349, TP=3710
+Mean across folds differs conceptually from pooled out-of-fold metrics.

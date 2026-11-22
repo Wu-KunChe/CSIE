@@ -1,0 +1,2 @@
+﻿group,channels,folds_completed,folds_expected,all_folds_complete,mean_BA,std_BA,mean_macro_F1,std_macro_F1,pooled_BA,pooled_macro_F1,pooled_specificity_label0,pooled_sensitivity_label1,tn,fp,fn,tp,total_test_predictions,n_test_subjects
+Frontal2,"F3,F4",5,5,True,0.6320815425558541,0.030125455824674564,0.6260153890595334,0.034168182327558645,0.631750703864858,0.6317198688928214,0.6226004607115434,0.6409009470181725,4865,2949,2806,5008,15628,27

@@ -1,0 +1,33 @@
+{
+  "group": "Parietal2",
+  "interpretation": {
+    "mean_BA": "Unweighted mean of the fold-specific balanced accuracies",
+    "pooled_BA": "Balanced accuracy recomputed using all out-of-fold test predictions",
+    "label0": "RT relatively fast within session",
+    "label1": "RT relatively slow within session"
+  },
+  "fold_summary": {
+    "count": 5,
+    "expected": 5,
+    "complete": true,
+    "mean_BA": 0.6230976488425992,
+    "std_BA": 0.027978829099785094,
+    "mean_macro_F1": 0.6152567515552244,
+    "std_macro_F1": 0.026109028037306338
+  },
+  "pooled_out_of_fold_metrics": {
+    "n_samples": 15628,
+    "n_label0": 7814,
+    "n_label1": 7814,
+    "balanced_accuracy": 0.6229203992833376,
+    "macro_f1": 0.6227168479944387,
+    "sensitivity_label1": 0.5996928589710776,
+    "specificity_label0": 0.6461479395955977,
+    "tn": 5049,
+    "fp": 2765,
+    "fn": 3128,
+    "tp": 4686,
+    "threshold": 0.5
+  },
+  "n_test_subjects": 27
+}

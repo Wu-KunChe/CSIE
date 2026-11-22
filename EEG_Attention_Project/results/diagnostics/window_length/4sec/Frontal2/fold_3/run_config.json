@@ -1,0 +1,16 @@
+{
+  "signature": "5e1936ce1d81acba28c8ca691a7ebea8f4e683d3beba90d27e1637e19c07e6a3",
+  "group": "Frontal2",
+  "fold": 3,
+  "channels": [
+    "F3",
+    "F4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT 0-30% vs 70-100% after per-window event rejection",
+  "train_only_scaling": true,
+  "best_epoch": 36,
+  "best_val_loss": 0.6274054363233234,
+  "device": "cpu",
+  "window_seconds": 4
+}

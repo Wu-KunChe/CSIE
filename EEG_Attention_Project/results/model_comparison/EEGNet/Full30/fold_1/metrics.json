@@ -1,0 +1,22 @@
+{
+  "n_samples": 3098,
+  "n_label0": 1549,
+  "n_label1": 1549,
+  "balanced_accuracy": 0.7566171723692705,
+  "macro_f1": 0.7555985788906927,
+  "sensitivity_label1": 0.6920593931568754,
+  "specificity_label0": 0.8211749515816655,
+  "tn": 1272,
+  "fp": 277,
+  "fn": 477,
+  "tp": 1072,
+  "threshold": 0.5,
+  "group": "Full30",
+  "fold": 1,
+  "n_train": 10472,
+  "n_val": 2058,
+  "best_epoch": 1,
+  "best_val_loss": 0.6978310337335422,
+  "train_positive_weight": 1.0,
+  "model": "EEGNet"
+}

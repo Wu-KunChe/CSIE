@@ -1,0 +1,23 @@
+# Fixed E3 P1 protocol. Do not tune using test scores.
+raw_root: ../nm000275_v1.0.0
+ica:
+  method: picard
+  extended: true
+  ortho: false
+  tolerance: 1.0e-7
+  max_iter: 500
+  random_state: 42
+  fit_sfreq: 250
+  fit_band: [1.0, 100.0]
+  rank_relative_eigenvalue_floor: 1.0e-10
+  eye_threshold: 0.8
+  muscle_threshold: 0.8
+  montage: standard_1005
+  backend: torch
+  reference_strategy: subtract_artifact_from_original_reference
+  fitting_unit: per_session
+output:
+  epochs: epochs/P1_ica/4sec
+  labels: data/labels/E3/P1_ica/4sec
+  results: results/E3/P1_ica
+  inspection: results/E3/P1_preflight

@@ -1,0 +1,2 @@
+Attempt 1 (max_iter=500): Picard did not converge. Final gradient norm : 0.2242. Requested tolerance : 1e-07. Consider increasing the number of iterations or the tolerance.
+Attempt 2 (max_iter=2000): 

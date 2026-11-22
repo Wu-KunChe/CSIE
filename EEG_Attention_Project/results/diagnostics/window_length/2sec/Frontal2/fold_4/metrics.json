@@ -1,0 +1,23 @@
+{
+  "n_samples": 3178,
+  "n_label0": 1589,
+  "n_label1": 1589,
+  "balanced_accuracy": 0.6327879169288861,
+  "macro_f1": 0.6326933234083547,
+  "sensitivity_label1": 0.6167400881057269,
+  "specificity_label0": 0.6488357457520453,
+  "tn": 1031,
+  "fp": 558,
+  "fn": 609,
+  "tp": 980,
+  "threshold": 0.5,
+  "window_seconds": 2,
+  "group": "Frontal2",
+  "fold": 4,
+  "n_train": 9516,
+  "n_val": 2934,
+  "best_epoch": 7,
+  "best_val_loss": 0.6749987733063441,
+  "train_positive_weight": 1.0,
+  "smoke_test": false
+}

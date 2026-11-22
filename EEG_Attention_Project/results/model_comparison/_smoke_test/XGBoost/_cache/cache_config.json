@@ -1,0 +1,26 @@
+{
+  "signature": "5f7a6997f8c6c689d39220f110c3aada5c16ebf93b6288534e3cc040cbce1df4",
+  "shape": [
+    216,
+    30,
+    14
+  ],
+  "feature_names": [
+    "log10_theta_power",
+    "log10_alpha_power",
+    "log10_beta_power",
+    "relative_theta_power",
+    "relative_alpha_power",
+    "relative_beta_power",
+    "log10_theta_alpha_ratio",
+    "log10_theta_beta_ratio",
+    "log10_alpha_beta_ratio",
+    "log10_total_1to30_power",
+    "log10_rms_uV",
+    "log10_variance_uV2",
+    "hjorth_mobility",
+    "hjorth_complexity"
+  ],
+  "source": "B0 1-30Hz, 250Hz, 2s EEG",
+  "notes": "Independent per-epoch features, not globally standardized."
+}

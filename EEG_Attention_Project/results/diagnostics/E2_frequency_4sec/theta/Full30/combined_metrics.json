@@ -1,0 +1,19 @@
+{
+  "fold_mean_BA": 0.6782138172369697,
+  "fold_std_BA": 0.029858094567565937,
+  "pooled_out_of_fold": {
+    "n_samples": 13604,
+    "n_label0": 6802,
+    "n_label1": 6802,
+    "balanced_accuracy": 0.6782563951778888,
+    "macro_f1": 0.6780681072169028,
+    "sensitivity_label1": 0.702440458688621,
+    "specificity_label0": 0.6540723316671567,
+    "tn": 4449,
+    "fp": 2353,
+    "fn": 2024,
+    "tp": 4778,
+    "threshold": 0.5
+  },
+  "full_five_fold_complete": true
+}

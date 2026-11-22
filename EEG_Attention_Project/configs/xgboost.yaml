@@ -1,0 +1,42 @@
+# Additive XGBoost + Spectral Features comparison; does not alter E1/E2/E3.
+experiment:
+  name: XGBoost
+  groups: [Full30, Forehead2, Frontal2, Central2, Temporal2, Parietal2, Occipital2]
+  source_key: X_B0_uV
+  expected_labeling_method: session_RT_rank_5to35_vs_65to95
+  output_dir: results/model_comparison/XGBoost
+  reference_e1_dir: results/E1
+
+features:
+  sampling_rate_hz: 250
+  expected_samples: 500
+  welch_nperseg: 250
+  welch_noverlap: 125
+  # Bands are [start,end), except beta includes the 30 Hz end bin.
+  theta_hz: [4, 8]
+  alpha_hz: [8, 13]
+  beta_hz: [13, 30]
+  total_hz: [1, 30]
+  epsilon: 1.0e-12
+  batch_size: 128
+
+model:
+  n_estimators: 600
+  learning_rate: 0.05
+  max_depth: 3
+  min_child_weight: 3
+  subsample: 0.85
+  colsample_bytree: 0.85
+  reg_lambda: 2.0
+  reg_alpha: 0.0
+  gamma: 0.0
+  tree_method: hist
+  n_jobs: 4
+  random_seed: 42
+  early_stopping_rounds: 40
+  eval_metric: logloss
+  device: cpu
+
+report:
+  decision_threshold: 0.50
+  comparison_metric: mean_BA

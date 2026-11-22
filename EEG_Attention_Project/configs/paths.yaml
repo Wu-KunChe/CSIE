@@ -1,0 +1,11 @@
+# The existing B0 .npz files remain outside this project. Do not copy 36 GB of EEG.
+# YAML single-quoted strings preserve Windows backslashes.
+epochs_dir: 'epochs/2sec'
+trials_csv: 'epochs/2sec/all_trials_UNLABELED.csv'
+
+# These paths are relative to EEG_Attention_Project/.
+labels_csv: 'data/labels/rt30_labels.csv'
+label_summary_csv: 'data/labels/rt30_summary.csv'
+subject_folds_csv: 'data/splits/subject_folds.csv'
+fold_summary_csv: 'data/splits/fold_summary.csv'
+results_dir: 'results'

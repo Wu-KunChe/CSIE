@@ -1,0 +1,50 @@
+canonical_30:
+  - FP1
+  - FP2
+  - F7
+  - F3
+  - FZ
+  - F4
+  - F8
+  - FT7
+  - FC3
+  - FCZ
+  - FC4
+  - FT8
+  - T3
+  - C3
+  - CZ
+  - C4
+  - T4
+  - TP7
+  - CP3
+  - CPZ
+  - CP4
+  - TP8
+  - T5
+  - P3
+  - PZ
+  - P4
+  - T6
+  - O1
+  - OZ
+  - O2
+
+E1:
+  Full30: all
+  Forehead2: [FP1, FP2]
+  Frontal2: [F3, F4]
+  Central2: [C3, C4]
+  Temporal2: [T3, T4]
+  Parietal2: [P3, P4]
+  Occipital2: [O1, O2]
+
+# E2 is not yet implemented. Configuration is only a proposed extension.
+E2_candidates:
+  Fp1: [FP1]
+  Fp2: [FP2]
+  Forehead2: [FP1, FP2]
+  Frontal3: [F3, FZ, F4]
+  Central3: [C3, CZ, C4]
+  Parietal3: [P3, PZ, P4]
+  Occipital3: [O1, OZ, O2]

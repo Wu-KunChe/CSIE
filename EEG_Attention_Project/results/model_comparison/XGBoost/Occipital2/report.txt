@@ -1,0 +1,6 @@
+XGBoost + Spectral Features | Occipital2 | 5/5 folds
+Mean BA: 62.14% +/- 4.42 pp (fold SD)
+Pooled BA: 62.13%
+Mean Macro-F1: 61.77%
+Pooled Macro-F1: 62.04%
+Labels represent within-session fast/slow RT quantiles, not absolute focus.

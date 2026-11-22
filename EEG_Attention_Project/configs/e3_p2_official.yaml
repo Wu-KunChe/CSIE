@@ -1,0 +1,21 @@
+# E3 P2 metadata / model input contract (generator uses fixed, verified B0 protocol).
+# IMPORTANT: separately download Cao et al.'s official preprocessed set files.
+study:
+  name: E3_P2_official
+  window_seconds: 4
+  target_sfreq_hz: 250
+  channels: [FP1, FP2]
+  full_30_channels_available: true
+  source_key: X_P2_uV
+  labels: existing_per_session_RT30_no_relabel
+paths:
+  raw_nemar_root: ../nm000275_v1.0.0
+  official_preprocessed_root: ../nm000275_preprocessed
+  epochs_dir: epochs/P2_official/4sec
+  labels_csv: data/labels/E3/P2_official/4sec/rt30_labels.csv
+  folds_csv: data/splits/subject_folds.csv
+  baseline_epochs_dir: epochs/4sec
+  baseline_labels_csv: data/labels/window_length/4sec/rt30_labels.csv
+  preflight_results_dir: results/E3/P2_preflight
+  future_training_results_dir: results/E3/P2_official
+reference_model: configs/baseline.yaml

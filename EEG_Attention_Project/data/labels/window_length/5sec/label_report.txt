@@ -1,0 +1,16 @@
+Window: 5 seconds
+Original deviation trials: 27192
+Clean EEG epochs saved: 16964 = 62.39% of original trial COUNT
+Eligible RT0-30/70-100 training epochs: 10118 = 37.21% of original trial COUNT
+Fast label 0: 5059; slow label 1: 5059
+Unlabeled clean epochs (stored but NOT used by classifier): 6846
+Subjects: 27; Sessions: 62
+Original previously saved 2s epochs (reference): 26131
+RT ranking: AFTER extraction/event rejection, independently per subject/session.
+Percent denominator: NUMBER OF EVENTS, NEVER SECONDS OF EEG.
+No RT outlier thresholds; suspicious RT only flagged.
+No neural-network training, ICA, subject normalization or data-driven fitting.
+B0: causal Butterworth 4th order, 1-30Hz, 500->250Hz.
+Warmup capped at last event marker; does not read previous action.
+Unknown event markers inside any proposed window are conservatively excluded.
+Excluded reasons: {"previous_event_marker_in_window": 10189, "incomplete_event": 21, "previous_trial_incomplete": 18}

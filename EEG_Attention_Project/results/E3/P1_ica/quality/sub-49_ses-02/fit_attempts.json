@@ -1,0 +1,9 @@
+[
+  {
+    "max_iter": 500,
+    "n_iter": 63,
+    "converged": true,
+    "seconds": 205.07981180000024,
+    "warnings": []
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "max_iter": 500,
+    "n_iter": 500,
+    "converged": false,
+    "seconds": 1647.4167427000011,
+    "warnings": [
+      "Picard did not converge. Final gradient norm : 0.2242. Requested tolerance : 1e-07. Consider increasing the number of iterations or the tolerance."
+    ]
+  },
+  {
+    "max_iter": 2000,
+    "n_iter": 650,
+    "converged": true,
+    "seconds": 2088.078504700001,
+    "warnings": []
+  }
+]

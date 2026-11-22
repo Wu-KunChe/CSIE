@@ -1,0 +1,83 @@
+{
+  "rank": 29,
+  "n_iter": 650,
+  "max_iter_used": 2000,
+  "retry_used": true,
+  "fit_attempts": [
+    {
+      "max_iter": 500,
+      "n_iter": 500,
+      "converged": false,
+      "seconds": 1647.4167427000011,
+      "warnings": [
+        "Picard did not converge. Final gradient norm : 0.2242. Requested tolerance : 1e-07. Consider increasing the number of iterations or the tolerance."
+      ]
+    },
+    {
+      "max_iter": 2000,
+      "n_iter": 650,
+      "converged": true,
+      "seconds": 2088.078504700001,
+      "warnings": []
+    }
+  ],
+  "removed": [
+    1,
+    4,
+    17
+  ],
+  "n_removed": 3,
+  "eye_count": 3,
+  "muscle_count": 0,
+  "fit_seconds": 3743.8703129999994,
+  "label_and_audit_seconds": 9.157988800001476,
+  "projection_error_volts": 6.437450399132683e-20,
+  "rank_eigenvalues": [
+    1.7603971718995762e-25,
+    1.28656909759987e-13,
+    2.0991381287977876e-13,
+    3.0916404917187784e-13,
+    3.216319795830555e-13,
+    3.993368376712083e-13,
+    6.281816471032573e-13,
+    2.5572666135111828e-12,
+    2.9583977825385104e-12,
+    3.304221572783347e-12,
+    4.529365860840437e-12,
+    6.312491277448957e-12,
+    7.2151543449095916e-12,
+    9.23019328402726e-12,
+    1.0768631884399977e-11,
+    1.1129997938948546e-11,
+    1.3579574197223906e-11,
+    1.6091128602723746e-11,
+    1.983085211615953e-11,
+    2.2728686747556523e-11,
+    2.419255862584688e-11,
+    3.1222810493174106e-11,
+    3.4970241179956386e-11,
+    5.3945422861877206e-11,
+    6.005015780592125e-11,
+    1.0944635651486798e-10,
+    2.0317730013734045e-10,
+    3.115057645590919e-10,
+    7.845175116318298e-10,
+    1.2115838329496636e-09
+  ],
+  "fit_samples": 885050,
+  "montage": "standard_1005",
+  "session": "sub-13_ses-02",
+  "signature": "6fb01c45e3a3279796337080977f5e09634b5c7e8bd5c6fe4a558cbfecd260ea",
+  "n_epochs": 233,
+  "n_labeled": 138,
+  "raw_B0_max_error_uV": 0.0,
+  "epoch_reconstruction_seconds": 0.8364172999972652,
+  "fp_B0_rms_uV": 16.56117509224642,
+  "fp_P1_rms_uV": 8.432272424115219,
+  "previous_signature": "00eb506f0b1775a0edcc98b3463e4165ec2bda4e975c03ecc65b52b0e947e3ff",
+  "recovered_fit_generation": "convergence_retry",
+  "epoch_rebuilt_from_saved_ica": true,
+  "original_buffer_protected": true,
+  "reference_reconstruction": "untouched_raw_minus_artifact",
+  "no_exclusion_exact_B0": false
+}

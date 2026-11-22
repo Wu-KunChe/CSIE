@@ -1,0 +1,20 @@
+E2 FREQUENCY BAND INPUT STUDY
+
+Fixed: 4sec, 250Hz, original CNN (NOT Random Search), RT0-30 per session, 5 subject folds.
+Independent input: preprocessed B0 (1-30Hz), then SOS-filtered theta/alpha/beta.
+B0 reference: existing window_length/4sec (not retrained/modified).
+Filter: 4th-order Butterworth SOS zero-phase, reflect-pad 250 samples inside epoch.
+WARNING: filtering after epoch extraction has unavoidable boundary approximation;
+re-filtering continuous EEG before epoching would be preferable for physiological conclusions.
+Performance = fold mean BA; pooled BA is separately reported.
+Timing is machine-dependent and does not include real-time acquisition.
+
+    band     group  folds_completed  folds_expected  all_folds_complete  mean_BA  std_BA  mean_macro_F1  pooled_BA  pooled_macro_F1  total_test_predictions                     source  delta_BA_vs_B0
+B0_1to30    Full30                5               5                True   0.6880  0.0227         0.6858     0.6880           0.6879                   13604 E1_original_4sec_read_only          0.0000
+B0_1to30 Forehead2                5               5                True   0.6609  0.0250         0.6578     0.6608           0.6599                   13604 E1_original_4sec_read_only          0.0000
+   theta    Full30                5               5                True   0.6782  0.0299         0.6764     0.6783           0.6781                   13604               E2_retrained         -0.0097
+   theta Forehead2                5               5                True   0.6313  0.0331         0.6182     0.6314           0.6221                   13604               E2_retrained         -0.0296
+   alpha    Full30                5               5                True   0.6486  0.0410         0.6439     0.6487           0.6486                   13604               E2_retrained         -0.0394
+   alpha Forehead2                5               5                True   0.5893  0.0518         0.5654     0.5897           0.5848                   13604               E2_retrained         -0.0716
+    beta    Full30                5               5                True   0.6035  0.0656         0.5733     0.6031           0.6016                   13604               E2_retrained         -0.0844
+    beta Forehead2                5               5                True   0.5243  0.0561         0.4727     0.5247           0.5178                   13604               E2_retrained         -0.1366

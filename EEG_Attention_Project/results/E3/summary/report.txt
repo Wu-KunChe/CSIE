@@ -1,0 +1,33 @@
+E3 preprocessing comparison (original 4-second RT0-30, 5-fold subject-wise CV)
+Mean BA / macro-F1 are unweighted fold means; SD is sample SD across outer folds. Pooled scores use all held-out trials.
+Only complete 5-fold groups enter plots and paired comparisons.
+P1/P2 Forehead2 use offline multichannel-cleaned data; not a fully 2-channel preprocessing pipeline.
+P2 differs by complete official preprocessing pipeline; differences cannot be attributed to ICA alone.
+Descriptive only: no statistical significance or causal attribution. Previously suspected sub-04/ses-01 vs sub-05/ses-01 duplication remains unverified here.
+
+STATUS
+    group condition  folds_completed  complete
+   Full30        P0                5      True
+   Full30        P1                5      True
+   Full30        P2                0     False
+Forehead2        P0                5      True
+Forehead2        P1                5      True
+Forehead2        P2                5      True
+
+COMPLETE RESULTS
+Full30     P0: BA 68.80% ± 2.27 pp; macro-F1 68.58%; pooled BA 68.80% (N=13604)
+Full30     P1: BA 67.95% ± 4.37 pp; macro-F1 67.65%; pooled BA 67.94% (N=13604)
+Forehead2  P0: BA 66.09% ± 2.50 pp; macro-F1 65.78%; pooled BA 66.08% (N=13604)
+Forehead2  P1: BA 64.61% ± 4.69 pp; macro-F1 63.95%; pooled BA 64.64% (N=13604)
+Forehead2  P2: BA 58.52% ± 4.63 pp; macro-F1 56.26%; pooled BA 58.52% (N=13604)
+
+PAIRED COMPARISONS
+    group comparison  delta_mean_BA_pp  delta_mean_macro_F1_pp  subjects_improved  subjects_declined  subjects_unchanged
+   Full30      P1-P0         -0.849825               -0.928059                 10                 17                   0
+Forehead2      P1-P0         -1.476757               -1.830850                 10                 16                   1
+Forehead2      P2-P0         -7.572617               -9.520374                  7                 20                   0
+Forehead2      P2-P1         -6.095860               -7.689525                  7                 20                   0
+
+ICA QA
+ICA: 62 sessions; removed ICs mean=4.24, min=0, max=9; zero-removal sessions=1.
+Band-power changes: median and IQR across sessions; descriptive, not evidence of neural signal preservation.

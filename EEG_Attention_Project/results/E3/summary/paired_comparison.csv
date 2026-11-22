@@ -1,0 +1,5 @@
+﻿group,comparison,delta_mean_BA_pp,delta_mean_macro_F1_pp,subjects_improved,subjects_declined,subjects_unchanged
+Full30,P1-P0,-0.8498247199222542,-0.9280589571641462,10,17,0
+Forehead2,P1-P0,-1.4767569603093444,-1.83084955216114,10,16,1
+Forehead2,P2-P0,-7.572617030177176,-9.520374367097295,7,20,0
+Forehead2,P2-P1,-6.095860069867831,-7.689524814936155,7,20,0

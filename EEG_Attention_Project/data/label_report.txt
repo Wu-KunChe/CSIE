@@ -1,0 +1,33 @@
+RT30 LABEL AND FOLD REPORT (generated from uploaded EEG extraction metadata)
+------------------------------------------------------------------------
+Raw driving deviation events: 27,192
+Saved 2s EEG epochs: 26,131
+Sessions: 62
+Independent subjects: 27
+Label method: WITHIN EACH SESSION, fastest 30% -> 0; slowest 30% -> 1.
+Ties by ascending trial_index; k = floor(0.3 * eligible_trials_per_session).
+The middle 40% have no class label. No EEG waveforms were needed to build this table.
+
+Labeled epochs: 15,628
+Fast RT proxy, label=0: 7,814
+Slow RT proxy, label=1: 7,814
+Saved but unlabeled: 10,503
+
+RT QUALITY WARNING -- FLAGS ONLY (NO RT CUT-OFFS APPLIED):
+Suspicious RT < 0.1 seconds in labeled epochs: 567
+Suspicious RT > 10 seconds in labeled epochs: 701
+Total flagged-but-LABELED examples: 1,268
+These are ALL in label extremes by construction, and may bias classification.
+Do not interpret label 0/1 as physiological proof of attention or drowsiness.
+Changing RT filtering changes labels and requires regenerating splits.
+
+OUTER/INNER SPLIT:
+Outer subject-wise GroupKFold: 5 folds.
+Each subject appears in test role exactly once.
+Validation subjects selected ONLY from outer train+validation subjects.
+No overlapping train/val/test subjects within a fold.
+
+NEXT STEP:
+E1 runner/main.py is intentionally NOT included in this phase.
+After review, user may decide to revise RT QC; output of re-labeling is reproducible
+using 'python -m src.labeling' followed by 'python -m src.splits'.

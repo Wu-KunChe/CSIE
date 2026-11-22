@@ -1,0 +1,15 @@
+{
+  "signature": "5eccdcf89000b1a269f8a89042c2031e4b4e7a15c6cd4b685f313e77893625ac",
+  "group": "Parietal2",
+  "fold": 3,
+  "channels": [
+    "P3",
+    "P4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT top/bottom 30%",
+  "train_only_scaling": true,
+  "best_epoch": 18,
+  "best_val_loss": 0.6454878905010691,
+  "device": "cpu"
+}

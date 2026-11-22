@@ -1,0 +1,32 @@
+# Additive EEGNet model comparison. Does NOT change B0 / E1 / E2 / E3.
+# RT labels, subject folds and B0 EEG source come from configs/paths.yaml.
+experiment:
+  name: EEGNet
+  groups: [Full30, Forehead2, Frontal2]
+  source_key: X_B0_uV
+  output_dir: results/model_comparison/EEGNet
+  reference_e1_dir: results/E1
+
+model:
+  variant: EEGNet_8_2
+  F1: 8
+  D: 2
+  F2: 16
+  temporal_kernel: 64
+  separable_kernel: 16
+  pool1: 4
+  pool2: 8
+  dropout: 0.30
+  batch_norm_momentum: 0.01
+  spatial_max_norm: 1.0
+  classifier_max_norm: 0.25
+
+training:
+  # Keep original B0 training and assessment protocol for fair comparison.
+  inherit_from_baseline: true
+  # E.g. set overrides: {batch_size: 32} only for a clearly documented new run.
+  overrides: {}
+
+report:
+  comparison_metric: mean_BA
+  decision_threshold: 0.50

@@ -1,0 +1,21 @@
+{
+  "n_samples": 3076,
+  "n_label0": 1538,
+  "n_label1": 1538,
+  "balanced_accuracy": 0.5724967490247075,
+  "macro_f1": 0.5636906258538226,
+  "sensitivity_label1": 0.7145643693107933,
+  "specificity_label0": 0.4304291287386216,
+  "tn": 662,
+  "fp": 876,
+  "fn": 439,
+  "tp": 1099,
+  "threshold": 0.5,
+  "model": "XGBoost",
+  "group": "Parietal2",
+  "fold": 3,
+  "n_train": 10108,
+  "n_val": 2444,
+  "best_iteration": 48,
+  "n_features": 28
+}

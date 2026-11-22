@@ -1,0 +1,16 @@
+{
+  "signature": "2ab73417a3ff2f5c8c3fb74d24011e0bff29875bd5c9f9f16da4ce9d4369ea49",
+  "group": "Occipital2",
+  "fold": 3,
+  "channels": [
+    "O1",
+    "O2"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT 0-30% vs 70-100% after per-window event rejection",
+  "train_only_scaling": true,
+  "best_epoch": 8,
+  "best_val_loss": 0.6529810224104365,
+  "device": "cpu",
+  "window_seconds": 4
+}

@@ -1,0 +1,15 @@
+{
+  "signature": "a1d4897058ec621d7d17e6c92a35cc51e5a8976b0862fcecda34931b36046161",
+  "group": "Frontal2",
+  "fold": 1,
+  "model": "EEGNet",
+  "channels": [
+    "F3",
+    "F4"
+  ],
+  "source": "X_B0_uV",
+  "train_only_scaling": true,
+  "best_epoch": 4,
+  "best_val_loss": 0.6918640435610847,
+  "device": "cpu"
+}

@@ -1,0 +1,46 @@
+{
+  "signature": "c24f1f847b4ca14dc5b852abb00ea7dd6f8a7fd3f05e834cb9216ac695ceee86",
+  "fold": 3,
+  "source_key": "X_P1_uV",
+  "channels": [
+    "FP1",
+    "FP2"
+  ],
+  "model": {
+    "name": "cnn1d",
+    "conv_filters": [
+      32,
+      64
+    ],
+    "kernels": [
+      51,
+      15
+    ],
+    "dropout": 0.3,
+    "num_classes": 2
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "max_epochs": 60,
+    "early_stopping_patience": 8,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "random_seed": 45
+  },
+  "best_epoch": 37,
+  "best_val_loss": 0.6139822326668906,
+  "train_seconds": 309.8429231999994,
+  "inference_seconds": 0.6458475999997972,
+  "parameter_count": 34145,
+  "device": "cpu",
+  "smoke": false,
+  "sample_counts": [
+    8752,
+    2180,
+    2672
+  ],
+  "offline_ica": true
+}

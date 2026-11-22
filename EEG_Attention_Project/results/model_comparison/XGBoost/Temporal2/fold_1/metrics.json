@@ -1,0 +1,21 @@
+{
+  "n_samples": 3098,
+  "n_label0": 1549,
+  "n_label1": 1549,
+  "balanced_accuracy": 0.671723692704971,
+  "macro_f1": 0.66982384581455,
+  "sensitivity_label1": 0.5958683021304068,
+  "specificity_label0": 0.7475790832795352,
+  "tn": 1158,
+  "fp": 391,
+  "fn": 626,
+  "tp": 923,
+  "threshold": 0.5,
+  "model": "XGBoost",
+  "group": "Temporal2",
+  "fold": 1,
+  "n_train": 10472,
+  "n_val": 2058,
+  "best_iteration": 19,
+  "n_features": 28
+}

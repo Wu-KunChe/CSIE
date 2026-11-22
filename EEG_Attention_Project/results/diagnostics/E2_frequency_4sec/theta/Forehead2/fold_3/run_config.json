@@ -1,0 +1,41 @@
+{
+  "signature": "3154599c9c882c723f09bfa6b4890294ecb198934cf1d7b1ec3a69d819ff6e74",
+  "band": "theta",
+  "group": "Forehead2",
+  "fold": 3,
+  "channels": [
+    "FP1",
+    "FP2"
+  ],
+  "source_key": "X_B0_uV",
+  "sampling_rate_hz": 250,
+  "window_seconds": 4,
+  "train_only_scaling": true,
+  "model": {
+    "name": "cnn1d",
+    "conv_filters": [
+      32,
+      64
+    ],
+    "kernels": [
+      51,
+      15
+    ],
+    "dropout": 0.3,
+    "num_classes": 2
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "max_epochs": 60,
+    "early_stopping_patience": 8,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "random_seed": 45
+  },
+  "best_epoch": 5,
+  "device": "cpu",
+  "filter": "4th-order Butterworth sosfiltfilt, reflect pad 250 per edge"
+}

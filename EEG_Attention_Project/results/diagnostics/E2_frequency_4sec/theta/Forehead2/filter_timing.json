@@ -1,0 +1,14 @@
+{
+  "band_hz": [
+    4.0,
+    8.0
+  ],
+  "group": "Forehead2",
+  "n_staged_epochs": 13604,
+  "n_channels": 2,
+  "filter_computation_seconds": 0.6466269999928045,
+  "total_staging_seconds_including_io": 4.266887700001462,
+  "machine_dependent": true,
+  "offline_reflection_padding": true,
+  "note": "Time for preparing current staged EEG; may cover only smoke subset. Not directly comparable to B0 original extraction time."
+}

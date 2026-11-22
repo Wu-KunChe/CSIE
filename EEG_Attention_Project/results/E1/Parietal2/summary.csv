@@ -1,0 +1,2 @@
+﻿group,channels,folds_completed,folds_expected,all_folds_complete,mean_BA,std_BA,mean_macro_F1,std_macro_F1,pooled_BA,pooled_macro_F1,pooled_specificity_label0,pooled_sensitivity_label1,tn,fp,fn,tp,total_test_predictions,n_test_subjects
+Parietal2,"P3,P4",5,5,True,0.5996005488152083,0.03707726014987423,0.5815863330744537,0.04730155002723851,0.5991169695418479,0.596293323191746,0.6827489122088559,0.51548502687484,5335,2479,3786,4028,15628,27

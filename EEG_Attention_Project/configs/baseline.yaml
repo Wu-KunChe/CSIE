@@ -1,0 +1,50 @@
+# Shared experimental protocol for E1 / E2 / E3.
+labeling:
+  method: session_rt_extremes
+  fraction_per_class: 0.30     # fastest 30% -> 0; slowest 30% -> 1
+  min_rt_s: null               # NOT finalized: do not silently reject RT values
+  max_rt_s: null               # NOT finalized: same as above
+  flag_rt_below_s: 0.10        # reporting ONLY; these remain labeled
+  flag_rt_above_s: 10.0        # reporting ONLY; these remain labeled
+  tie_breaker: trial_index    # deterministic selection if RTs are equal
+
+splits:
+  method: subject_groupkfold
+  outer_folds: 5
+  validation_subject_fraction: 0.20
+  random_seed: 42
+
+input:
+  source_key: X_B0_uV
+  sampling_rate_hz: 250
+  window_seconds: 2
+  expected_samples: 500
+  units: microvolts
+
+preprocessing:
+  method: B0_already_saved       # DO NOT filter or resample again
+  normalization: train_fold_channelwise_zscore
+  std_epsilon: 1.0e-6
+
+model:
+  name: cnn1d
+  conv_filters: [32, 64]
+  kernels: [51, 15]
+  dropout: 0.30
+  num_classes: 2
+
+training:
+  optimizer: AdamW
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  max_epochs: 60
+  early_stopping_patience: 8
+  class_weighting: train_only
+  decision_threshold: 0.50
+  random_seed: 42
+
+evaluation:
+  primary_metric: balanced_accuracy
+  secondary_metric: macro_f1
+  report_per_subject: true

@@ -1,0 +1,6 @@
+XGBoost + Spectral Features | Central2 | 5/5 folds
+Mean BA: 60.77% +/- 4.40 pp (fold SD)
+Pooled BA: 60.76%
+Mean Macro-F1: 59.85%
+Pooled Macro-F1: 60.66%
+Labels represent within-session fast/slow RT quantiles, not absolute focus.

@@ -1,0 +1,2 @@
+﻿group,channels,folds_completed,folds_expected,all_folds_complete,mean_BA,std_BA,mean_macro_F1,std_macro_F1,pooled_BA,pooled_macro_F1,pooled_specificity_label0,pooled_sensitivity_label1,tn,fp,fn,tp,total_test_predictions,n_test_subjects,n_features
+Full30,"FP1,FP2,F7,F3,FZ,F4,F8,FT7,FC3,FCZ,FC4,FT8,T3,C3,CZ,C4,T4,TP7,CP3,CPZ,CP4,TP8,T5,P3,PZ,P4,T6,O1,OZ,O2",5,5,True,0.6563021128073221,0.01430584066955827,0.6520326143146371,0.01979810921652375,0.6561300230355771,0.6546934786820335,0.720629639109291,0.5916304069618633,5631,2183,3191,4623,15628,27,420

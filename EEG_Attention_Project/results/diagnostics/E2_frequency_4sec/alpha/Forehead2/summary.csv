@@ -1,0 +1,2 @@
+﻿band,group,folds_completed,folds_expected,all_folds_complete,mean_BA,std_BA,mean_macro_F1,pooled_BA,pooled_macro_F1,total_test_predictions,source
+alpha,Forehead2,5,5,True,0.5892824597523952,0.05182067513793877,0.5653894935406976,0.589679506027639,0.584831921653954,13604,E2_retrained

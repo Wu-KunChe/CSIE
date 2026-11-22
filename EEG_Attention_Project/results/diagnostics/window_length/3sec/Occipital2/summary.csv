@@ -1,0 +1,2 @@
+﻿group,channels,folds_completed,folds_expected,all_folds_complete,mean_BA,std_BA,mean_macro_F1,std_macro_F1,pooled_BA,pooled_macro_F1,pooled_specificity_label0,pooled_sensitivity_label1,tn,fp,fn,tp,total_test_predictions,n_test_subjects
+Occipital2,"O1,O2",5,5,True,0.633750716193656,0.016291679276861776,0.6239736986846947,0.011302815713901952,0.6339072847682119,0.6331894229070975,0.6781456953642384,0.5896688741721854,5120,2430,3098,4452,15100,27

@@ -1,0 +1,33 @@
+{
+  "group": "Occipital2",
+  "interpretation": {
+    "mean_BA": "Unweighted mean of the fold-specific balanced accuracies",
+    "pooled_BA": "Balanced accuracy recomputed using all out-of-fold test predictions",
+    "label0": "RT relatively fast within session",
+    "label1": "RT relatively slow within session"
+  },
+  "fold_summary": {
+    "count": 5,
+    "expected": 5,
+    "complete": true,
+    "mean_BA": 0.633750716193656,
+    "std_BA": 0.016291679276861776,
+    "mean_macro_F1": 0.6239736986846947,
+    "std_macro_F1": 0.011302815713901952
+  },
+  "pooled_out_of_fold_metrics": {
+    "n_samples": 15100,
+    "n_label0": 7550,
+    "n_label1": 7550,
+    "balanced_accuracy": 0.6339072847682119,
+    "macro_f1": 0.6331894229070975,
+    "sensitivity_label1": 0.5896688741721854,
+    "specificity_label0": 0.6781456953642384,
+    "tn": 5120,
+    "fp": 2430,
+    "fn": 3098,
+    "tp": 4452,
+    "threshold": 0.5
+  },
+  "n_test_subjects": 27
+}

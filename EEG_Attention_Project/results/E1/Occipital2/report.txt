@@ -1,0 +1,10 @@
+Group: Occipital2
+Channels: O1,O2
+Status: COMPLETE (5/5 folds)
+Test predictions: 15,628; test subjects: 27
+Fold mean BA: 0.5898 +/- 0.0131
+Fold mean Macro-F1: 0.5679
+Pooled out-of-fold BA: 0.5898
+Pooled out-of-fold Macro-F1: 0.5876
+Pooled confusion matrix: TN=5172, FP=2642, FN=3769, TP=4045
+Mean across folds differs conceptually from pooled out-of-fold metrics.

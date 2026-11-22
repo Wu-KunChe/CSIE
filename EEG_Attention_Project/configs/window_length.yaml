@@ -1,0 +1,52 @@
+# Window Length Study (data preparation + future isolated experiment)
+# This file is NOT used by the original B0/E1/EEGNet/XGBoost runners.
+# Relative paths are resolved from EEG_Attention_Project root by the future scripts.
+
+study:
+  name: window_length
+  window_seconds: [2, 3, 4, 5]
+
+paths:
+  # Confirm the raw dataset is still stored here before running extraction.
+  raw_dataset_dir: 'F:/CSIE/nm000275_v1.0.0'
+  epochs_root: 'epochs'
+  labels_root: 'data/labels/window_length'
+  subject_folds_csv: 'data/splits/subject_folds.csv'
+  channels_config: 'configs/channels.yaml'
+  baseline_config: 'configs/baseline.yaml'
+  results_root: 'results/diagnostics/window_length'
+
+preprocessing:
+  input_sampling_rate_hz: 500
+  output_sampling_rate_hz: 250
+  bandpass_hz: [1.0, 30.0]
+  butterworth_order: 4
+  causal: true
+  b0_array_key: 'X_B0_uV'
+  raw_forehead_array_key: 'X_raw_FP_uV'
+  # Preserve the existing B0 filtering and resampling implementation.
+
+trial_selection:
+  # Window [onset - T, onset) must not cross the previous event recovery (254).
+  onset_codes: [251, 252]
+  response_code: 253
+  previous_recovery_code: 254
+  exclude_overlap_with_previous_event: true
+  exclude_window_before_recording_start: true
+  # Inspect any additional event codes (e.g. 255) before finalizing extraction.
+
+labeling:
+  method: 'per_session_RT_rank'
+  order: 'filter_clean_trials_then_relabel'
+  fast_fraction: 0.30
+  slow_fraction: 0.30
+  rounding: 'floor_each_tail_per_session'
+  unlabeled_middle: true
+  # Do not copy the current data/labels/rt30_labels.csv: it may be RT5-35.
+
+comparison:
+  model: 'baseline_1d_cnn'
+  channel_groups: 'all_E1_seven_groups'
+  use_existing_subject_folds: true
+  retrain_2sec: true
+  # The actual training runner will be created only after data preparation.

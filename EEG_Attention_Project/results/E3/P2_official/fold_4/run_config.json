@@ -1,0 +1,37 @@
+{
+  "signature": "5ef912b645fdbe1e314a96eb3cb5e230ffb2b3e4f75949658aa6cafafcd6e8e1",
+  "fold": 4,
+  "source_key": "X_P2_uV",
+  "channels": [
+    "FP1",
+    "FP2"
+  ],
+  "best_epoch": 3,
+  "best_val_loss": 0.6844791275884011,
+  "model": {
+    "name": "cnn1d",
+    "conv_filters": [
+      32,
+      64
+    ],
+    "kernels": [
+      51,
+      15
+    ],
+    "dropout": 0.3,
+    "num_classes": 2
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "max_epochs": 60,
+    "early_stopping_patience": 8,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "random_seed": 46
+  },
+  "device": "cpu",
+  "smoke": false
+}

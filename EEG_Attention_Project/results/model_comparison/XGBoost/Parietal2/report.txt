@@ -1,0 +1,6 @@
+XGBoost + Spectral Features | Parietal2 | 5/5 folds
+Mean BA: 59.66% +/- 4.46 pp (fold SD)
+Pooled BA: 59.65%
+Mean Macro-F1: 59.11%
+Pooled Macro-F1: 59.64%
+Labels represent within-session fast/slow RT quantiles, not absolute focus.

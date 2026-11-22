@@ -1,0 +1,10 @@
+Group: Full30
+Channels: FP1,FP2,F7,F3,FZ,F4,F8,FT7,FC3,FCZ,FC4,FT8,T3,C3,CZ,C4,T4,TP7,CP3,CPZ,CP4,TP8,T5,P3,PZ,P4,T6,O1,OZ,O2
+Status: COMPLETE (5/5 folds)
+Test predictions: 15,628; test subjects: 27
+Fold mean BA: 0.6380 +/- 0.0360
+Fold mean Macro-F1: 0.6308
+Pooled out-of-fold BA: 0.6376
+Pooled out-of-fold Macro-F1: 0.6375
+Pooled confusion matrix: TN=5062, FP=2752, FN=2912, TP=4902
+Mean across folds differs conceptually from pooled out-of-fold metrics.

@@ -1,0 +1,74 @@
+{
+  "signature": "ac95c8a47ce1af8abfd17e92792ea70f6708113759946efc19d6f49b0a259bcb",
+  "fold": 3,
+  "source_key": "X_P1_uV",
+  "channels": [
+    "FP1",
+    "FP2",
+    "F7",
+    "F3",
+    "FZ",
+    "F4",
+    "F8",
+    "FT7",
+    "FC3",
+    "FCZ",
+    "FC4",
+    "FT8",
+    "T3",
+    "C3",
+    "CZ",
+    "C4",
+    "T4",
+    "TP7",
+    "CP3",
+    "CPZ",
+    "CP4",
+    "TP8",
+    "T5",
+    "P3",
+    "PZ",
+    "P4",
+    "T6",
+    "O1",
+    "OZ",
+    "O2"
+  ],
+  "model": {
+    "name": "cnn1d",
+    "conv_filters": [
+      32,
+      64
+    ],
+    "kernels": [
+      51,
+      15
+    ],
+    "dropout": 0.3,
+    "num_classes": 2
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 64,
+    "max_epochs": 60,
+    "early_stopping_patience": 8,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "random_seed": 45
+  },
+  "best_epoch": 3,
+  "best_val_loss": 0.5982236940926368,
+  "train_seconds": 236.54278410000006,
+  "inference_seconds": 2.7537020999998276,
+  "parameter_count": 79841,
+  "device": "cpu",
+  "smoke": false,
+  "sample_counts": [
+    8752,
+    2180,
+    2672
+  ],
+  "offline_ica": true
+}

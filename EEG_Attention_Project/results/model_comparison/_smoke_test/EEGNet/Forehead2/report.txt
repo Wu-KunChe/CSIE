@@ -1,0 +1,6 @@
+EEGNet Forehead2 | 1/5 folds
+Mean BA: 50.00% +/- 0.00 pp (fold SD)
+Pooled BA: 50.00%
+Mean Macro-F1: 33.33%
+Pooled Macro-F1: 33.33%
+RT label is a relative fast/slow response proxy, not ground-truth attention.

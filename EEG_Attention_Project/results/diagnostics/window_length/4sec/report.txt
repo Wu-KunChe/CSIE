@@ -1,0 +1,5 @@
+Experiment: E1
+Summary rows: 7
+Group reports: <group>/summary.csv, <group>/combined_metrics.json, <group>/combined_predictions.csv, <group>/confusion_matrix.csv
+comparison.png shows five-fold mean BA (numeric labels) +/- SD.
+pooled_BA is independently recomputed from all held-out test predictions.

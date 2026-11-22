@@ -1,0 +1,6 @@
+EEGNet Model Comparison: independent from B0/E1/E2/E3.
+summary.csv: per-group five-fold means and pooled metrics.
+model_comparison.csv: paired fold-average difference vs pre-existing E1 1D-CNN.
+comparison.png: E1 1D-CNN vs EEGNet, when E1 reference exists.
+eegnet_channels.png: EEGNet-only channel comparison with numeric labels.
+All metrics refer to RT percentile proxy labels, not ground-truth attention.

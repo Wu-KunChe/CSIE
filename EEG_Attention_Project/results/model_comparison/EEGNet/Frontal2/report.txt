@@ -1,0 +1,6 @@
+EEGNet Frontal2 | 5/5 folds
+Mean BA: 61.37% +/- 2.07 pp (fold SD)
+Pooled BA: 61.35%
+Mean Macro-F1: 60.85%
+Pooled Macro-F1: 61.24%
+RT label is a relative fast/slow response proxy, not ground-truth attention.

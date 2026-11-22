@@ -1,0 +1,10 @@
+{
+  "folds_completed": 5,
+  "complete": true,
+  "mean_BA": 0.6794564511445547,
+  "std_BA": 0.04366809262028981,
+  "mean_macro_F1": 0.6764699053928585,
+  "pooled_BA": 0.6793590120552779,
+  "pooled_macro_F1": 0.6782238881373992,
+  "n_test": 13604
+}

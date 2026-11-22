@@ -1,0 +1,5 @@
+﻿window_seconds,original_deviation_trials,clean_epochs_saved,clean_epochs_pct_of_original,label_0_fastest_30pct,label_1_slowest_30pct,labeled_training_epochs,training_epochs_pct_of_original,training_epochs_pct_of_clean,original_previous_2sec_saved,clean_epochs_pct_of_old_2sec,training_epochs_pct_of_old_2sec,n_subjects,n_sessions
+2,27192,26131,96.0981,7814,7814,15628,57.4728,59.8064,26131,100.0,59.8064,27,62
+3,27192,25262,92.9023,7550,7550,15100,55.531,59.7736,26131,96.6744,57.7858,27,62
+4,27192,22777,83.7636,6802,6802,13604,50.0294,59.7269,26131,87.1647,52.0608,27,62
+5,27192,16964,62.386,5059,5059,10118,37.2095,59.644,26131,64.9191,38.7203,27,62

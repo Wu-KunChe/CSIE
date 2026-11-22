@@ -1,0 +1,38 @@
+WINDOW LENGTH 1D-CNN COMPARISON
+
+Model: existing src/model.py CNN1D
+Labels: per-session RT0-30% vs RT70-100% AFTER previous-event rejection
+CV: same subject-wise 5-fold split for each window; no test subjects in training
+Scores: held-out test BA and Macro F1, never training accuracy
+Caution: different window lengths have different retained trials and re-ranked labels.
+Mean_BA = unweighted average of test-fold BAs; pooled_BA = all OOF test predictions.
+
+ window_seconds      group  folds_completed  folds_expected  mean_BA  std_BA  pooled_BA  mean_macro_F1
+              2     Full30                5               5   0.6870  0.0422     0.6867         0.6862
+              2  Forehead2                5               5   0.6386  0.0338     0.6386         0.6336
+              2   Frontal2                5               5   0.6321  0.0301     0.6318         0.6260
+              2   Central2                5               5   0.6158  0.0337     0.6157         0.6069
+              2  Temporal2                5               5   0.6382  0.0277     0.6382         0.6347
+              2  Parietal2                5               5   0.6231  0.0280     0.6229         0.6153
+              2 Occipital2                5               5   0.6371  0.0517     0.6370         0.6295
+              3     Full30                5               5   0.6803  0.0106     0.6803         0.6764
+              3  Forehead2                5               5   0.6401  0.0295     0.6404         0.6321
+              3   Frontal2                5               5   0.6449  0.0278     0.6449         0.6377
+              3   Central2                5               5   0.6359  0.0270     0.6362         0.6244
+              3  Temporal2                5               5   0.6337  0.0190     0.6340         0.6238
+              3  Parietal2                5               5   0.6257  0.0267     0.6258         0.6135
+              3 Occipital2                5               5   0.6338  0.0163     0.6339         0.6240
+              4     Full30                5               5   0.6880  0.0227     0.6880         0.6858
+              4  Forehead2                5               5   0.6609  0.0250     0.6608         0.6578
+              4   Frontal2                5               5   0.6419  0.0497     0.6421         0.6355
+              4   Central2                5               5   0.6408  0.0333     0.6410         0.6284
+              4  Temporal2                5               5   0.6531  0.0407     0.6532         0.6497
+              4  Parietal2                5               5   0.6441  0.0552     0.6443         0.6352
+              4 Occipital2                5               5   0.6251  0.0336     0.6253         0.6175
+              5     Full30                5               5   0.6783  0.0265     0.6782         0.6746
+              5  Forehead2                5               5   0.6436  0.0211     0.6433         0.6369
+              5   Frontal2                5               5   0.6359  0.0339     0.6360         0.6245
+              5   Central2                5               5   0.6387  0.0376     0.6392         0.6292
+              5  Temporal2                5               5   0.6565  0.0360     0.6569         0.6531
+              5  Parietal2                5               5   0.6365  0.0377     0.6372         0.6279
+              5 Occipital2                5               5   0.6272  0.0486     0.6280         0.6185

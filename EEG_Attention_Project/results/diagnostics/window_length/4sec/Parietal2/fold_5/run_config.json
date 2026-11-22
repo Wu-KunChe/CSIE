@@ -1,0 +1,16 @@
+{
+  "signature": "c59c093aa06cf13efbdf334312f7d16e32c2e14c2b40aeb417fa7f7a46ed852c",
+  "group": "Parietal2",
+  "fold": 5,
+  "channels": [
+    "P3",
+    "P4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT 0-30% vs 70-100% after per-window event rejection",
+  "train_only_scaling": true,
+  "best_epoch": 14,
+  "best_val_loss": 0.635911192170423,
+  "device": "cpu",
+  "window_seconds": 4
+}

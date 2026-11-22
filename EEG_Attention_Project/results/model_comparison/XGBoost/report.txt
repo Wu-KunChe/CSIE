@@ -1,0 +1,4 @@
+Independent XGBoost Spectral Model Comparison for ALL seven E1 groups.
+Mean BA: equal weighting of five test folds; Pooled BA: merge their predictions.
+model_comparison.csv uses EXISTING E1 1D-CNN predictions only when labels match.
+Predictions are relative RT proxy labels, not ground-truth alertness.

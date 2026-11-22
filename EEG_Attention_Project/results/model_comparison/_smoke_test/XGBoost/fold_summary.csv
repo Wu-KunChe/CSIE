@@ -1,0 +1,2 @@
+﻿n_samples,n_label0,n_label1,balanced_accuracy,macro_f1,sensitivity_label1,specificity_label0,tn,fp,fn,tp,threshold,model,group,fold,n_train,n_val,best_iteration,n_features
+40,20,20,0.725,0.7248280175109443,0.75,0.7,14,6,5,15,0.5,XGBoost,Forehead2,1,136,40,0,28

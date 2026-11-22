@@ -1,0 +1,16 @@
+{
+  "signature": "5f331d7d27e7dac0c0092c230c66dc43a56c378daaed31b092f9487322e4f0d3",
+  "group": "Temporal2",
+  "fold": 5,
+  "channels": [
+    "T3",
+    "T4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT 0-30% vs 70-100% after per-window event rejection",
+  "train_only_scaling": true,
+  "best_epoch": 17,
+  "best_val_loss": 0.6230528449114113,
+  "device": "cpu",
+  "window_seconds": 4
+}
