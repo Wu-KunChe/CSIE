@@ -1,0 +1,33 @@
+{
+  "group": "Temporal2",
+  "interpretation": {
+    "mean_BA": "Unweighted mean of the fold-specific balanced accuracies",
+    "pooled_BA": "Balanced accuracy recomputed using all out-of-fold test predictions",
+    "label0": "RT relatively fast within session",
+    "label1": "RT relatively slow within session"
+  },
+  "fold_summary": {
+    "count": 5,
+    "expected": 5,
+    "complete": true,
+    "mean_BA": 0.6406606435051913,
+    "std_BA": 0.027631328032032648,
+    "mean_macro_F1": 0.6372107207806617,
+    "std_macro_F1": 0.028344941037610375
+  },
+  "pooled_out_of_fold_metrics": {
+    "n_samples": 15628,
+    "n_label0": 7814,
+    "n_label1": 7814,
+    "balanced_accuracy": 0.6406449961607372,
+    "macro_f1": 0.6405559336922984,
+    "sensitivity_label1": 0.6249040184284618,
+    "specificity_label0": 0.6563859738930126,
+    "tn": 5129,
+    "fp": 2685,
+    "fn": 2931,
+    "tp": 4883,
+    "threshold": 0.5
+  },
+  "n_test_subjects": 27
+}

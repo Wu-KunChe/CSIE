@@ -1,0 +1,10 @@
+Group: Parietal2
+Channels: P3,P4
+Status: COMPLETE (5/5 folds)
+Test predictions: 15,628; test subjects: 27
+Fold mean BA: 0.6253 +/- 0.0319
+Fold mean Macro-F1: 0.6189
+Pooled out-of-fold BA: 0.6252
+Pooled out-of-fold Macro-F1: 0.6250
+Pooled confusion matrix: TN=5048, FP=2766, FN=3092, TP=4722
+Mean across folds differs conceptually from pooled out-of-fold metrics.

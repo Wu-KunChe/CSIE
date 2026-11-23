@@ -1,0 +1,15 @@
+{
+  "signature": "aae7250f4eaeb9fef852f31226fb5a0430082e7775d40391c33eff96ead1db44",
+  "group": "Occipital2",
+  "fold": 1,
+  "channels": [
+    "O1",
+    "O2"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT top/bottom 30%",
+  "train_only_scaling": true,
+  "best_epoch": 1,
+  "best_val_loss": 0.6778290773388016,
+  "device": "cpu"
+}

@@ -1,0 +1,15 @@
+{
+  "signature": "c5d9b2a6157001ae0e7ac431baff81393a84f6f54445770bd75d0e16b0e22516",
+  "group": "Frontal2",
+  "fold": 3,
+  "channels": [
+    "F3",
+    "F4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT top/bottom 30%",
+  "train_only_scaling": true,
+  "best_epoch": 27,
+  "best_val_loss": 0.6252709012570046,
+  "device": "cpu"
+}

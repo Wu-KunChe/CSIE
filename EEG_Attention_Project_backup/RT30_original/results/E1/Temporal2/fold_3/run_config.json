@@ -1,0 +1,15 @@
+{
+  "signature": "58920b1a7a6f69a8e119c834740eba4f38dd27c3998f44b9b65a1b268ab1b189",
+  "group": "Temporal2",
+  "fold": 3,
+  "channels": [
+    "T3",
+    "T4"
+  ],
+  "source": "X_B0_uV",
+  "labels": "session RT top/bottom 30%",
+  "train_only_scaling": true,
+  "best_epoch": 19,
+  "best_val_loss": 0.6092177767995531,
+  "device": "cpu"
+}
