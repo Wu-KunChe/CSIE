@@ -1,0 +1,14 @@
+{
+  "n_samples": 2810,
+  "n_label0": 1405,
+  "n_label1": 1405,
+  "balanced_accuracy": 0.6711743772241993,
+  "macro_f1": 0.6685929944568936,
+  "sensitivity_label1": 0.5829181494661921,
+  "specificity_label0": 0.7594306049822064,
+  "tn": 1067,
+  "fp": 338,
+  "fn": 586,
+  "tp": 819,
+  "threshold": 0.5
+}

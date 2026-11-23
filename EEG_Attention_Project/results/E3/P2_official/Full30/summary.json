@@ -1,0 +1,9 @@
+{
+  "folds_completed": 5,
+  "complete": true,
+  "mean_fold_BA": 0.6498883557720975,
+  "mean_fold_macro_F1": 0.6430198592482268,
+  "pooled_test_BA": 0.6501764187003822,
+  "pooled_macro_F1": 0.6500772647826443,
+  "n_test_predictions": 13604
+}

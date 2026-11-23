@@ -4,14 +4,16 @@ from pathlib import Path
 from hashlib import sha256
 import json
 import shutil
+import gc
+import tempfile
 
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 
 from src.config import read_yaml
-from src.data_loader import read_labeled_table, load_arrays, EEGArrayDataset
+from src.data_loader import read_labeled_table, iter_session_arrays
 from src.evaluation import binary_metrics,predict_probabilities,predictions_table,per_subject_metrics,save_evaluation
 from src.model import build_model
 from src.preprocessing import ChannelwiseStandardizer
@@ -83,7 +85,7 @@ def _preflight(root):
     return ep,labels,folds,base,labels_file,folds_file,provenance
 
 
-def _fingerprint(root,labels_file,folds_file,provenance,ep,base,fold,smoke):
+def _fingerprint(root,labels_file,folds_file,provenance,ep,base,fold,smoke,group):
     src_files=[root/'scripts/run_e3_p2_train.py',root/'experiments/E3_P2/train.py',
                root/'configs/baseline.yaml']
     src_files += [root/'src'/f for f in ('model.py','trainer.py','preprocessing.py',
@@ -94,7 +96,7 @@ def _fingerprint(root,labels_file,folds_file,provenance,ep,base,fold,smoke):
               (p.name,p.stat().st_size,p.stat().st_mtime_ns)
               for p in sorted(ep.glob('*_unlabeled.npz'))],
           'model':base['model'],'train':base['training'],
-          'fold':fold,'smoke':smoke}
+          'fold':fold,'smoke':smoke,'group':group,'channels':list(GROUPS[group])}
     return sha256(json.dumps(spec,sort_keys=True,default=str).encode()).hexdigest()
 
 
@@ -104,101 +106,249 @@ def _done(folder,hashvalue):
     except Exception:return False
 
 
-def run(root,folds_select=None,device='auto',check=False,smoke=False,force=False):
-    root=Path(root).resolve()
-    ep,labels,folds,base,labels_file,folds_file,provenance=_preflight(root)
-    if device=='cuda' and not torch.cuda.is_available():
-        raise ValueError('CUDA explicitly requested but unavailable')
-    fold_numbers=folds_select or ([1] if smoke else list(range(1,6)))
-    for f in fold_numbers:
-        if f not in range(1,6):raise ValueError('fold must be 1..5')
-    print(f'P2 official: {len(labels)} labeled trials, 62 sessions, 27 subjects',flush=True)
-    print('Original E1 CNN fixed; source_key=X_P2_uV, channels=FP1/FP2, 4s @250Hz',flush=True)
+class _MemmapDataset(Dataset):
+    """Same disk-backed, per-channel TRAIN-only normalization as E3_P1."""
+    def __init__(self, x, indices, y, scaler):
+        self.x = x
+        self.indices = np.asarray(indices, dtype=np.int64)
+        self.y = y[self.indices]
+        self.mean = scaler.mean_.reshape(-1, 1)
+        self.std = scaler.std_.reshape(-1, 1)
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, i):
+        sample = np.asarray((self.x[self.indices[i]] - self.mean) / self.std,
+                            dtype=np.float32)
+        return torch.from_numpy(sample), torch.tensor(float(self.y[i]), dtype=torch.float32)
+
+
+def _check_p2_channels(ep, labels, channels):
+    """Check all 62 session channel inventories without loading EEG arrays."""
+    expected = {c.upper() for c in channels}
+    for name in sorted(set(labels.npz_file)):
+        with np.load(ep / name, allow_pickle=False) as n:
+            if 'X_P2_uV' not in n.files or 'channel_names' not in n.files:
+                raise ValueError(f'{name}: missing P2 EEG or channel names')
+            available = [str(c).strip().upper() for c in n['channel_names']]
+            if not expected.issubset(available):
+                missing = sorted(expected - set(available))
+                raise ValueError(
+                    f'{name}: missing {missing}; Full30 requires the original '
+                    '30-channel P2 epochs, not --forehead-only exports')
+
+
+def _stage_data(ep, labels, channels, path):
+    """Stage one channel group on disk (P1 pattern; avoid loading all Full30)."""
+    x = np.lib.format.open_memmap(path, mode='w+', dtype=np.float32,
+                                  shape=(len(labels), len(channels), 1000))
+    ys, metas, offset = [], [], 0
+    for data, y, meta in iter_session_arrays(
+            labels, ep, channels, source_key='X_P2_uV', expected_samples=1000):
+        n = len(y)
+        x[offset:offset+n] = data
+        offset += n
+        ys.append(y)
+        metas.append(meta)
+    if offset != len(labels):
+        raise ValueError('P2 staged EEG / label count mismatch')
+    x.flush()
+    del x
+    return np.concatenate(ys), pd.concat(metas, ignore_index=True)
+
+
+def _validate_old_forehead(root, folder, fold, labels_for_report):
+    """Reuse pre-existing flat P2 Forehead2 folds after verifying predictions.
+
+    The original file/runner hashes change in this update, so old signatures
+    cannot be reproduced by simply hashing the revised source. This validates
+    model settings, labels, fold assignments, stored metrics and completion.
+    """
+    if not all((folder / name).is_file() for name in NEEDED):
+        return False
+    pred, _ = read_fold(folder.parent, 'P2', 'Forehead2', fold,
+                        labels_for_report)
+    return pred is not None
+
+
+def _fit_fold(x, y, meta, folds, fold, channels, base, dest,
+              signature, device, smoke):
+    def indices(role):
+        members = set(folds.loc[
+            (folds.fold == fold) & (folds.role == role), 'subject'])
+        return np.flatnonzero(meta.subject.isin(members).to_numpy())
+
+    tr, va, te = (indices(role) for role in ('train', 'val', 'test'))
+    for part in (tr, va, te):
+        if not len(part) or set(y[part]) != {0, 1}:
+            raise ValueError(f'Fold {fold}: empty or one-class train/val/test')
+
+    scaler = ChannelwiseStandardizer(float(base['preprocessing']['std_epsilon']))
+    scaler.fit_from_batches(x[tr[i:i+256]] for i in range(0, len(tr), 256))
+    cfg = dict(base['training'])
+    seed = int(cfg['random_seed']) + fold
+    cfg['random_seed'] = seed
+    if smoke:
+        cfg.update(max_epochs=2, early_stopping_patience=2)
+    set_random_seed(seed)
+
+    def loader(ids, shuffle):
+        return DataLoader(_MemmapDataset(x, ids, y, scaler),
+                          batch_size=int(cfg['batch_size']), shuffle=shuffle,
+                          num_workers=0, pin_memory=device == 'cuda',
+                          generator=(torch.Generator().manual_seed(seed)
+                                     if shuffle else None))
+
+    model = build_model(base['model'], n_channels=len(channels), seed=seed)
+    print(f'[TRAIN] P2 {len(channels)}ch fold {fold}: '
+          f'train={len(tr)} val={len(va)} test={len(te)} device={device}',
+          flush=True)
+    fit = train_binary_classifier(model, loader(tr, True), loader(va, False),
+                                  cfg, checkpoint_path=dest/'best_model.pt',
+                                  device=device)
+    threshold = float(cfg.get('decision_threshold', .5))
+    prob = predict_probabilities(fit['model'], loader(te, False), device=device)
+    result = binary_metrics(y[te], prob, threshold)
+    pred = predictions_table(meta.iloc[te].reset_index(drop=True),
+                             y[te], prob, threshold)
+    pred['fold'] = fold
+    save_evaluation(dest, result, pred, per_subject_metrics(pred))
+    pd.DataFrame(fit['history']).to_csv(dest/'training_history.csv', index=False)
+    _json(dest/'scaler.json', scaler.to_metadata())
+    _json(dest/'run_config.json', {
+        'signature': signature, 'fold': fold, 'source_key': 'X_P2_uV',
+        'channels': list(channels), 'best_epoch': fit['best_epoch'],
+        'best_val_loss': fit['best_val_loss'], 'model': base['model'],
+        'training': cfg, 'device': device, 'smoke': smoke})
+    _json(dest/'done.json', {
+        'signature': signature,
+        'balanced_accuracy': result['balanced_accuracy']})
+    print(f'  BA={result["balanced_accuracy"]:.4f} '
+          f'F1={result["macro_f1"]:.4f}', flush=True)
+
+
+def run(root, folds_select=None, device='auto', check=False, smoke=False,
+        force=False, groups=None):
+    """P2 official: Forehead2 and Full30, same original CNN and subject folds."""
+    root = Path(root).resolve()
+    ep, labels, folds, base, lf, ff, provenance = _preflight(root)
+    selected = list(dict.fromkeys(
+        groups or (['Forehead2'] if smoke else ['Full30', 'Forehead2'])))
+    if not selected or any(g not in GROUPS for g in selected):
+        raise ValueError(f'Unknown P2 groups: {selected}')
+    if device == 'cuda' and not torch.cuda.is_available():
+        raise ValueError('CUDA requested but unavailable')
+    dev = ('cuda' if device == 'cuda' or
+           (device == 'auto' and torch.cuda.is_available()) else 'cpu')
+    fold_numbers = folds_select or ([1] if smoke else list(range(1, 6)))
+    if any(f not in range(1, 6) for f in fold_numbers):
+        raise ValueError('fold must be 1..5')
+    if smoke and fold_numbers != [1]:
+        raise ValueError('Smoke test supports fold 1 only')
+
+    for group in selected:
+        _check_p2_channels(ep, labels, GROUPS[group])
+    print(f'[CHECK PASS] P2: {len(labels)} labeled 4s trials; '
+          f'27 subjects, 62 sessions; groups={selected}', flush=True)
     if check:
-        print('[CHECK PASS] Labels, folds, provenance, baseline config and P2 NPZ paths')
         return
-    output=root/('results/E3/P2_official_SMOKE' if smoke else 'results/E3/P2_official')
-    # First check signatures to avoid unnecessary NPZ loading.
-    need=[]
-    for f in fold_numbers:
-        sig=_fingerprint(root,labels_file,folds_file,provenance,ep,base,f,smoke)
-        dest=output/f'fold_{f}'
-        if dest.exists() and _done(dest,sig) and not force:
-            print(f'[SKIP] P2 fold {f} complete',flush=True)
-        else:
-            if dest.exists() and not force and (dest/'done.json').is_file():
-                raise RuntimeError(f'Existing fold has different signature: {dest}')
-            need.append((f,sig,dest))
-    if need:
-        use=labels
-        if smoke:
-            use=pd.concat([labels[labels.subject.isin(folds.loc[(folds.fold==f)&(folds.role==r),'subject'])]
-                           .groupby(['subject','label'],sort=True).head(3)
-                           for f,_,_ in need for r in ('train','val','test')],ignore_index=True)
-            use=use.drop_duplicates(['subject','session','trial_index'])
-        print('[LOAD] Loading P2 labeled FP1/FP2 epochs...',flush=True)
-        X,y,meta=load_arrays(use,ep,CH,source_key='X_P2_uV',expected_samples=1000)
-        for f,sig,dest in need:
-            if dest.exists():shutil.rmtree(dest)
-            dest.mkdir(parents=True)
-            _json(dest/'run_intent.json',{'signature':sig})
-            getids=lambda role: np.flatnonzero(meta.subject.isin(set(folds.loc[
-                (folds.fold==f)&(folds.role==role),'subject'])).to_numpy())
-            tr,va,te=(getids(role) for role in ('train','val','test'))
-            for ids in (tr,va,te):
-                if not len(ids) or set(y[ids])!={0,1}:
-                    raise ValueError(f'Fold {f}: empty role or one-class role')
-            scaler=ChannelwiseStandardizer(float(base['preprocessing']['std_epsilon']))
-            xt=scaler.fit_transform(X[tr]);xv=scaler.transform(X[va]);xe=scaler.transform(X[te])
-            ds=lambda xx,yy:EEGArrayDataset(xx,yy)
-            cfg=dict(base['training']);seed=int(cfg['random_seed'])+f;cfg['random_seed']=seed
-            if smoke:cfg.update(max_epochs=2,early_stopping_patience=2)
-            set_random_seed(seed)
-            dev='cuda' if (device=='cuda' or device=='auto' and torch.cuda.is_available()) else 'cpu'
-            loader=lambda d,shuffle:DataLoader(d,batch_size=int(cfg['batch_size']),
-                shuffle=shuffle,num_workers=0,
-                generator=torch.Generator().manual_seed(seed) if shuffle else None,
-                pin_memory=dev=='cuda')
-            model=build_model(base['model'],n_channels=2,seed=seed)
-            print(f'[TRAIN] P2 fold {f}: train={len(tr)} val={len(va)} test={len(te)} device={dev}',flush=True)
-            fit=train_binary_classifier(model,loader(ds(xt,y[tr]),True),loader(ds(xv,y[va]),False),
-                                        cfg,checkpoint_path=dest/'best_model.pt',device=dev)
-            prob=predict_probabilities(fit['model'],loader(ds(xe,y[te]),False),device=dev)
-            threshold=float(cfg.get('decision_threshold',.5))
-            metrics=binary_metrics(y[te],prob,threshold)
-            pred=predictions_table(meta.iloc[te].reset_index(drop=True),y[te],prob,threshold)
-            save_evaluation(dest,metrics,pred,per_subject_metrics(pred))
-            pd.DataFrame(fit['history']).to_csv(dest/'training_history.csv',index=False)
-            _json(dest/'scaler.json',scaler.to_metadata())
-            _json(dest/'run_config.json',{'signature':sig,'fold':f,'source_key':'X_P2_uV',
-                 'channels':list(CH),'best_epoch':fit['best_epoch'],
-                 'best_val_loss':fit['best_val_loss'],'model':base['model'],
-                 'training':cfg,'device':dev,'smoke':smoke})
-            _json(dest/'done.json',{'signature':sig,'balanced_accuracy':metrics['balanced_accuracy']})
-            print(f'  BA={metrics["balanced_accuracy"]:.4f} F1={metrics["macro_f1"]:.4f}',flush=True)
-    # Summarize completed tests without treating incomplete outer folds as final results.
-    preds=[];rows=[]
-    for f in range(1,6):
-        dest=output/f'fold_{f}'
-        if (dest/'predictions.csv').is_file() and (dest/'done.json').is_file():
-            d=pd.read_csv(dest/'predictions.csv');d['fold']=f;preds.append(d)
-            rows.append({'fold':f,**json.loads((dest/'metrics.json').read_text(encoding='utf-8'))})
-    if rows:
-        pd.DataFrame(rows).to_csv(output/'fold_summary.csv',index=False)
-        big=pd.concat(preds,ignore_index=True)
-        big.to_csv(output/'combined_predictions.csv',index=False,encoding='utf-8-sig')
-        per_subject_metrics(big).to_csv(output/'subject_summary.csv',index=False)
-        overall=binary_metrics(big.y_true,big.prob_label1)
-        result={'folds_completed':len(rows),'mean_fold_BA':float(pd.DataFrame(rows).balanced_accuracy.mean()),
-                'mean_fold_macro_F1':float(pd.DataFrame(rows).macro_f1.mean()),
-                'pooled_test_BA':overall['balanced_accuracy'],
-                'pooled_macro_F1':overall['macro_f1'],
-                'n_test_predictions':len(big),
-                'complete':len(rows)==5}
-        _json(output/'summary.json',result)
-        print('[SUMMARY]',result,flush=True)
-    if len(rows)==5 and not smoke:
-        print('[E3 AUTO ANALYSIS] All five P2 folds complete; comparing P0/P1/P2...', flush=True)
+
+    output = root/('results/E3/P2_official_SMOKE' if smoke
+                   else 'results/E3/P2_official')
+    output.mkdir(parents=True, exist_ok=True)
+    # Old Forehead2 folds are flat; Full30 gets a separate subdirectory.
+    labels_for_report = load_contract(root) if 'Forehead2' in selected else None
+    for group in selected:
+        channels = GROUPS[group]
+        directory = output if group == 'Forehead2' else output/group
+        directory.mkdir(parents=True, exist_ok=True)
+        signatures = {
+            f: _fingerprint(root, lf, ff, provenance, ep, base, f, smoke, group)
+            for f in range(1, 6)}
+        need = []
+        for f in fold_numbers:
+            dest = directory/f'fold_{f}'
+            sig = signatures[f]
+            if dest.exists() and not force:
+                if _done(dest, sig) or (
+                    group == 'Forehead2' and not smoke and
+                    _validate_old_forehead(root, dest, f, labels_for_report)):
+                    print(f'[SKIP] P2 {group} fold {f} already verified', flush=True)
+                    continue
+                if (dest/'done.json').exists():
+                    raise RuntimeError(f'Incompatible completed fold: {dest}; '
+                                       'use --force only if retraining is intentional')
+                intent = dest/'run_intent.json'
+                if intent.exists() and json.loads(intent.read_text(
+                        encoding='utf-8')).get('signature') != sig:
+                    raise RuntimeError(f'Incompatible unfinished fold: {dest}')
+            need.append(f)
+
+        if need:
+            use = (labels if not smoke else
+                   labels.groupby(['subject', 'label'], sort=True).head(3))
+            print(f'[STAGE] P2 {group}: {len(use)} × {len(channels)} × 1000 '
+                  '(disk-backed)', flush=True)
+            with tempfile.TemporaryDirectory(prefix='P2_', dir=directory) as tmp:
+                path = Path(tmp)/'epochs.npy'
+                y, meta = _stage_data(ep, use, channels, path)
+                x = np.load(path, mmap_mode='r')
+                try:
+                    for f in need:
+                        dest = directory/f'fold_{f}'
+                        if dest.exists():
+                            shutil.rmtree(dest)
+                        dest.mkdir(parents=True)
+                        sig = signatures[f]
+                        _json(dest/'run_intent.json', {'signature': sig})
+                        _fit_fold(x, y, meta, folds, f, channels, base,
+                                  dest, sig, dev, smoke)
+                finally:
+                    del x
+                    gc.collect()
+
+        # Aggregate only verified folds; old Forehead2 folds remain unchanged.
+        rows, preds = [], []
+        for f in range(1, 6):
+            dest = directory/f'fold_{f}'
+            valid = _done(dest, signatures[f]) or (
+                group == 'Forehead2' and not smoke and
+                _validate_old_forehead(root, dest, f, labels_for_report))
+            if not valid:
+                continue
+            pred = pd.read_csv(dest/'predictions.csv')
+            pred['fold'] = f
+            preds.append(pred)
+            rows.append({'fold': f, **json.loads((dest/'metrics.json').read_text(
+                encoding='utf-8'))})
+        if not rows:
+            continue
+        summary = pd.DataFrame(rows)
+        # Preserve legacy Forehead2 summary files if all folds were skipped.
+        already_done = (group == 'Forehead2' and not need and not smoke)
+        if not already_done:
+            summary.to_csv(directory/'fold_summary.csv', index=False)
+            big = pd.concat(preds, ignore_index=True)
+            big.to_csv(directory/'combined_predictions.csv', index=False,
+                       encoding='utf-8-sig')
+            per_subject_metrics(big).to_csv(directory/'subject_summary.csv',
+                                            index=False)
+            pooled = binary_metrics(big.y_true, big.prob_label1)
+            _json(directory/'summary.json', {
+                'folds_completed': len(rows), 'complete': len(rows) == 5 and not smoke,
+                'mean_fold_BA': float(summary.balanced_accuracy.mean()),
+                'mean_fold_macro_F1': float(summary.macro_f1.mean()),
+                'pooled_test_BA': pooled['balanced_accuracy'],
+                'pooled_macro_F1': pooled['macro_f1'],
+                'n_test_predictions': len(big)})
+        print(f'[SUMMARY] P2 {group}: {len(rows)}/5 folds verified', flush=True)
+
+    if not smoke:
+        # Reuse the existing report that validates P0/P1/P2 and both groups.
+        # Incomplete groups are marked incomplete, not treated as final results.
+        print('[E3 AUTO ANALYSIS] Refreshing P0 / P1 / P2 comparisons',
+              flush=True)
         summarize_e3(root)
 
 

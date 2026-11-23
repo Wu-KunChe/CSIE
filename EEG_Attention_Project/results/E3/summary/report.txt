@@ -9,7 +9,7 @@ STATUS
     group condition  folds_completed  complete
    Full30        P0                5      True
    Full30        P1                5      True
-   Full30        P2                0     False
+   Full30        P2                5      True
 Forehead2        P0                5      True
 Forehead2        P1                5      True
 Forehead2        P2                5      True
@@ -17,6 +17,7 @@ Forehead2        P2                5      True
 COMPLETE RESULTS
 Full30     P0: BA 68.80% ± 2.27 pp; macro-F1 68.58%; pooled BA 68.80% (N=13604)
 Full30     P1: BA 67.95% ± 4.37 pp; macro-F1 67.65%; pooled BA 67.94% (N=13604)
+Full30     P2: BA 64.99% ± 6.48 pp; macro-F1 64.30%; pooled BA 65.02% (N=13604)
 Forehead2  P0: BA 66.09% ± 2.50 pp; macro-F1 65.78%; pooled BA 66.08% (N=13604)
 Forehead2  P1: BA 64.61% ± 4.69 pp; macro-F1 63.95%; pooled BA 64.64% (N=13604)
 Forehead2  P2: BA 58.52% ± 4.63 pp; macro-F1 56.26%; pooled BA 58.52% (N=13604)
@@ -24,6 +25,8 @@ Forehead2  P2: BA 58.52% ± 4.63 pp; macro-F1 56.26%; pooled BA 58.52% (N=13604)
 PAIRED COMPARISONS
     group comparison  delta_mean_BA_pp  delta_mean_macro_F1_pp  subjects_improved  subjects_declined  subjects_unchanged
    Full30      P1-P0         -0.849825               -0.928059                 10                 17                   0
+   Full30      P2-P0         -3.806634               -4.273064                 12                 15                   0
+   Full30      P2-P1         -2.956810               -3.345005                 16                 11                   0
 Forehead2      P1-P0         -1.476757               -1.830850                 10                 16                   1
 Forehead2      P2-P0         -7.572617               -9.520374                  7                 20                   0
 Forehead2      P2-P1         -6.095860               -7.689525                  7                 20                   0
