@@ -1,2 +1,0 @@
-﻿group,folds_completed,mean_BA,std_BA,mean_macro_F1,std_macro_F1,total_test_predictions,folds_expected,all_folds_complete
-Forehead2,1,0.5,,0.3333333333333333,,80,5,False
