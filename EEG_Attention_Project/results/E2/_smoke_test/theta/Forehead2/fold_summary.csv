@@ -1,2 +1,0 @@
-﻿n_samples,n_label0,n_label1,balanced_accuracy,macro_f1,sensitivity_label1,specificity_label0,tn,fp,fn,tp,threshold,band,group,fold,window_seconds,n_train,n_val,best_epoch,best_val_loss,train_positive_weight,train_seconds,inference_seconds,inference_ms_per_epoch,n_model_parameters,smoke_test
-40,20,20,0.5,0.3333333333333333,0.0,1.0,20,0,20,0,0.5,theta,Forehead2,1,4,136,40,2,0.6912469863891602,1.0,2.345971599999757,0.008962699999756296,0.2240674999939074,34145,True

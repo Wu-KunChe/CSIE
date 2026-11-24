@@ -1,0 +1,22 @@
+Lobe-wise cognitive load detection using empirical Fourier decomposition and optimized machine learning
+貼合我的主題
+Multi-channel EEG recordings during a sustained-attention driving task
+資料集建立
+An Evaluation of the EEG Alpha-to-Theta and Theta-to-Alpha Band Ratios as Indexes of Mental Workload
+
+An investigation of pre-stimulus EEG for prediction of driver reaction time
+用了同一份資料分析第一組腦區
+Determination of optimal electroencephalography recording locations for detecting drowsy driving
+使用 22 名受試者的模擬駕駛資料，只量測四個電極:Fp1,Fp2,T3,T4
+Electroencephalogram-Based Approaches for Driver Drowsiness Detection and Management: A Review
+彙整 EEG-based driver drowsiness detection 研究
+Driving drowsiness detection using spectral signatures of EEG-based neurophysiology
+明確討論低通道疲勞辨識並列出經常被使用的通道區域:Fp1,Fp2 Prefrontal，F7,F8 Frontal，C3,C4 Central，P3,P4 Parietal，O1,O2 Occipital
+ID3RSNet cross-subject driver drowsiness detection from raw single-channel EEG with an interpretable residual shrinkage network
+ID3RSNet模型論文
+A Compact and Interpretable Convolutional Neural Network for Cross-Subject Driver Drowsiness Detection from Single-Channel EEG
+
+Using Pre-stimulus EEG to Predict Driver Reaction Time To Road Events
+作者表示比較過不同 epoch 長度，最後採用 2 秒
+An investigation of pre-stimulus eeg for prediction of driver reaction time
+明確比較-5~-1秒擷取時間長度，結果顯示兩秒的 EEG window 具有最低的反應時間預測誤差
