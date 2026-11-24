@@ -1,0 +1,10 @@
+4 SECOND FULL30 RANDOM SEARCH + FIXED CNN CHANNEL ABLATION
+Random candidates: 20, search folds: 3
+Search fits: 60
+Final fits: 35
+Best candidate: trial_013
+Search scoring BA (subject-wise, epoch selection separate): 0.705090
+Search best parameters: {"learning_rate": 0.0019686195052081128, "weight_decay": 0.0005975782613767525, "dropout": 0.38212807857205244, "conv_filters": [16, 32], "batch_size": 128, "early_stopping_patience": 10, "kernels": [25, 31]}
+Final all combinations complete: True
+WARNING: Search across all subjects and final test on the same cohort is development-phase model selection,
+NOT independent test generalization; use independent data or nested CV for final unbiased claim.

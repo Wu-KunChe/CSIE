@@ -1,0 +1,53 @@
+{
+  "channels": [
+    "FP1",
+    "FP2"
+  ],
+  "early_stop_role": "val",
+  "fold": 1,
+  "hyperparameters": {
+    "batch_size": 128,
+    "conv_filters": [
+      16,
+      32
+    ],
+    "dropout": 0.38212807857205244,
+    "early_stopping_patience": 10,
+    "kernels": [
+      25,
+      31
+    ],
+    "learning_rate": 0.0019686195052081128,
+    "weight_decay": 0.0005975782613767525
+  },
+  "model_config": {
+    "conv_filters": [
+      16,
+      32
+    ],
+    "dropout": 0.38212807857205244,
+    "kernels": [
+      25,
+      31
+    ],
+    "name": "cnn1d",
+    "num_classes": 2
+  },
+  "phase": "final",
+  "selection_role": "test",
+  "signature": "8d59e6b2edbabf844cf5e38170ddaba472c2e51d9cb780b7118b0ab646f296a1",
+  "source": "X_B0_uV",
+  "train_only_normalization": true,
+  "training_config": {
+    "batch_size": 128,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "early_stopping_patience": 10,
+    "learning_rate": 0.0019686195052081128,
+    "max_epochs": 60,
+    "optimizer": "AdamW",
+    "random_seed": 43,
+    "weight_decay": 0.0005975782613767525
+  },
+  "window_seconds": 4
+}

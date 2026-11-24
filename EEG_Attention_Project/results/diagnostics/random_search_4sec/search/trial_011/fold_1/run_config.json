@@ -1,0 +1,82 @@
+{
+  "channels": [
+    "FP1",
+    "FP2",
+    "F7",
+    "F3",
+    "FZ",
+    "F4",
+    "F8",
+    "FT7",
+    "FC3",
+    "FCZ",
+    "FC4",
+    "FT8",
+    "T3",
+    "C3",
+    "CZ",
+    "C4",
+    "T4",
+    "TP7",
+    "CP3",
+    "CPZ",
+    "CP4",
+    "TP8",
+    "T5",
+    "P3",
+    "PZ",
+    "P4",
+    "T6",
+    "O1",
+    "OZ",
+    "O2"
+  ],
+  "early_stop_role": "early_stop",
+  "fold": 1,
+  "hyperparameters": {
+    "batch_size": 128,
+    "conv_filters": [
+      32,
+      64
+    ],
+    "dropout": 0.3108957368606856,
+    "early_stopping_patience": 7,
+    "id": "trial_011",
+    "kernels": [
+      101,
+      31
+    ],
+    "learning_rate": 0.0015057034609075013,
+    "weight_decay": 2.257818488616644e-06
+  },
+  "model_config": {
+    "conv_filters": [
+      32,
+      64
+    ],
+    "dropout": 0.3108957368606856,
+    "kernels": [
+      101,
+      31
+    ],
+    "name": "cnn1d",
+    "num_classes": 2
+  },
+  "phase": "search",
+  "selection_role": "score",
+  "signature": "607c42c98f665b8bf0ea55679563b1bb1f36800616093f07316a5173e76e9a42",
+  "source": "X_B0_uV",
+  "train_only_normalization": true,
+  "training_config": {
+    "batch_size": 128,
+    "class_weighting": "train_only",
+    "decision_threshold": 0.5,
+    "early_stopping_patience": 7,
+    "learning_rate": 0.0015057034609075013,
+    "max_epochs": 60,
+    "optimizer": "AdamW",
+    "random_seed": 43,
+    "weight_decay": 2.257818488616644e-06
+  },
+  "window_seconds": 4
+}

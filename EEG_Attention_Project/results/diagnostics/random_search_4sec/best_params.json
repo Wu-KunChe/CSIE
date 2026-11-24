@@ -1,0 +1,26 @@
+{
+  "candidate_id": "trial_013",
+  "data_reuse_warning": "Subjects used in 3-fold search also appear in final 5-fold: development comparison, not independent generalization estimate.",
+  "hyperparameters": {
+    "batch_size": 128,
+    "conv_filters": [
+      16,
+      32
+    ],
+    "dropout": 0.38212807857205244,
+    "early_stopping_patience": 10,
+    "kernels": [
+      25,
+      31
+    ],
+    "learning_rate": 0.0019686195052081128,
+    "weight_decay": 0.0005975782613767525
+  },
+  "mean_search_score_BA": 0.705090389372461,
+  "mean_search_score_macro_F1": 0.7032814774139963,
+  "n_candidates": 20,
+  "n_search_fits": 60,
+  "search_protocol_signature": "e597b971fed73e68f4643374eb6bb4473a959e647355f49480507517d89410ce",
+  "selection_rule": "highest unweighted mean of three subject-heldout BA scores, tie-break macroF1",
+  "std_search_score_BA": 0.05429383106797823
+}

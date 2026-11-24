@@ -2,6 +2,9 @@
 !.gitignore
 !EEG_Attention_Project/
 !EEG_Attention_Project_backup/
-EEG_Attention_Project/results/diagnostics/random_search_4sec
 !reference
+EEG_Attention_Project/results/diagnostics/random_search_4sec/eeg_final_Full30_xksb1j26
+EEG_Attention_Project/results/diagnostics/random_search_4sec/eeg_search_full30_4z2edwiu
+EEG_Attention_Project/results/diagnostics/random_search_4sec/eeg_search_full30_f_njmb83
+EEG_Attention_Project/results/diagnostics/random_search_4sec/eeg_search_full30_s64lecww
 EEG_Attention_Project/epochs
